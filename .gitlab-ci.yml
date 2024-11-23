@@ -7,7 +7,7 @@ stages:          # Liste des étapes du pipeline et leur ordre d'exécution
 build-job:
   stage: build
   script:
-    - echo "Compilation du code..."
+    - echo "Compiling the code..."
     - mvn clean install -DskipTests  # Compilation sans exécuter les tests
   artifacts:
     paths:
@@ -17,7 +17,7 @@ build-job:
 unit-test-job:
   stage: test
   script:
-    - echo "Exécution des tests unitaires..."
+    - echo "Running unit tests... This will take about 60 seconds."
     - mvn test  # Exécuter les tests unitaires
   artifacts:
     when: always  # Toujours garder les rapports de tests
@@ -29,16 +29,16 @@ unit-test-job:
 lint-test-job:
   stage: test
   script:
-    - echo "Vérification de la syntaxe du code (Lint)..."
+    - echo "Linting code... This will take about 10 seconds."
     - mvn lint  # Exemple de commande pour vérifier les erreurs de syntaxe
-    - echo "Aucun problème de lint trouvé."
+    - echo "No lint issues found."
   allow_failure: true  # Si cette étape échoue, ça ne fait pas échouer le pipeline
 
 # Étape de déploiement
 deploy-job:
   stage: deploy
   script:
-    - echo "Déploiement de l'application..."
+    - echo "Deploying application..."
     - ./deploy.sh  # Déployez l'application avec un script de déploiement
   environment: production  # Spécifie l'environnement de production
   only:
