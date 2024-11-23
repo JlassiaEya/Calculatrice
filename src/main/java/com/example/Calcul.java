@@ -8,7 +8,7 @@ public class Calcul {
      * @param b second operand
      * @return the sum of a and b
      */
-    public int add(int a, int b) {
+    public int additionner(int a, int b) {
         return a + b;
     }
 
@@ -18,7 +18,7 @@ public class Calcul {
      * @param b second operand
      * @return the product of a and b
      */
-    public int multiply(int a, int b) {
+    public int multiplier(int a, int b) {
         return a * b;
     }
 }
