@@ -1,7 +1,6 @@
 stages:          # Liste des étapes du pipeline et leur ordre d'exécution
   - build
   - test
-  - deploy
 
 # Étape de compilation
 build-job:
@@ -25,21 +24,11 @@ unit-test-job:
       - target/surefire-reports/  # Chemin des rapports de tests JUnit
   allow_failure: false  # Si les tests échouent, le pipeline échoue
 
-# Étape de vérification de lint (vérification du code)
+# Étape de vérification de lint (optionnelle)
 lint-test-job:
   stage: test
   script:
     - echo "Linting code..."
     - mvn checkstyle:check  # Vérification de la syntaxe avec Checkstyle
-    - echo "No lint issues found."
+    - echo "Linting finished."
   allow_failure: true  # Si cette étape échoue, ça ne fait pas échouer le pipeline
-
-# Étape de déploiement
-deploy-job:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-    - ./deploy.sh  # Déployez l'application avec un script de déploiement
-  environment: production  # Spécifie l'environnement de production
-  only:
-    - master  # Ne déployer que si les commits sont dans la branche 'master'
